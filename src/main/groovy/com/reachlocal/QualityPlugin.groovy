@@ -11,10 +11,17 @@ class QualityPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.plugins.apply(JavaPlugin)
         project.extensions.create('quality', QualityExtension)
-        Task checkStyleTask = CheckStyleConfigurer.checkStyleTask(project)
-        Task pmdTask = PmdConfigurer.setupPmd(project)
-        Task jacocoTask = JacocoConfigurer.setupJacoco(project)
-        project.task('quality')
-               .dependsOn('build', checkStyleTask, pmdTask, jacocoTask)
+
+        createQualityTask(project)
+    }
+
+    private static void createQualityTask(Project project){
+        List<Configurer> configurers = [new CheckStyleConfigurer(), new PmdConfigurer(), new JacocoConfigurer()]
+        Set<Task> tasks = ['build'] as Set<Task>
+        configurers.each{ Configurer configurer ->
+            tasks << configurer.createConfigureTask(project)
+            tasks << configurer.createViewTask(project)
+        }
+        project.task('quality').dependsOn = tasks
     }
 }

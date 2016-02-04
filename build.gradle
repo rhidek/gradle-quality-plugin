@@ -12,12 +12,12 @@ ext {
 }
 
 //For local testing
-//apply plugin: 'maven'
-//uploadArchives {
-//    repositories.mavenDeployer {
-//        repository(url: "file:///Users/ryan.hidek/RLDEV/repo")
-//    }
-//}
+apply plugin: 'maven'
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: "file:///Users/ryan.hidek/RLDEV/repo")
+    }
+}
 
 repositories {
     mavenCentral()
