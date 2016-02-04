@@ -17,7 +17,7 @@ apply plugin: 'quality'
 
 quality{
     checkStyle{
-        configDestination = "somewhere/other/than/default"
+        configDestination = "somewhere/other/than/default/checkstyle.xml"
     }
     pmd {
         failBuildOnViolation = true
