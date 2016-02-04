@@ -1,0 +1,34 @@
+apply plugin: 'groovy'
+
+group 'com.reachlocal'
+version '1.0'
+archivesBaseName = "quality-plugin"
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+ext {
+    groovy = [version: '2.4.5']
+}
+
+//For local testing
+//apply plugin: 'maven'
+//uploadArchives {
+//    repositories.mavenDeployer {
+//        repository(url: "file:///Users/ryan.hidek/RLDEV/repo")
+//    }
+//}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy:${groovy.version}"
+    compile gradleApi()
+    testCompile gradleTestKit()
+}
+
+task wrapper(type: Wrapper){
+    gradleVersion = '2.10'
+}
